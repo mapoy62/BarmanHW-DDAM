@@ -64,10 +64,10 @@
             </objects>
             <point key="canvasLocation" x="-426" y="-266"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Recipe View Controller-->
         <scene sceneID="9cf-yz-8Pj">
             <objects>
-                <viewController id="9PG-2T-IE8" sceneMemberID="viewController">
+                <viewController id="9PG-2T-IE8" customClass="AddRecipeViewController" customModule="Barman" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="85W-BI-6Dc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -103,6 +103,9 @@
                                 <rect key="frame" x="169" y="547" width="55" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add"/>
+                                <connections>
+                                    <action selector="btnAdd:" destination="9PG-2T-IE8" eventType="touchUpInside" id="gaA-pj-mD2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eHS-nU-Jfn"/>
@@ -124,6 +127,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="b57-Ul-Ebb"/>
+                    <connections>
+                        <outlet property="txtDrinkName" destination="35b-HG-hR9" id="8DN-Dm-Di0"/>
+                        <outlet property="txtIngredients" destination="nb7-O8-QLb" id="oVB-eT-RgB"/>
+                        <outlet property="txtInstructions" destination="xSb-JI-EmL" id="KKk-tr-g7B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WNc-sQ-N7s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

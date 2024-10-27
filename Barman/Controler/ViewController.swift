@@ -33,7 +33,16 @@ class ViewController: UIViewController {
         if let imageUrl = theRecipe.image {
             detail.loadImage(from: imageUrl)
         }
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+            if let scrollView = view.subviews.first(where: { $0 is UIScrollView }) as? UIScrollView {
+                if let contentView = scrollView.subviews.first {
+                    scrollView.contentSize = contentView.frame.size
+                }
+            }
     }
 }
 

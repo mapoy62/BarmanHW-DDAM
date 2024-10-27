@@ -21,6 +21,8 @@ class InternetMonitor: NSObject {
         self.monitor.pathUpdateHandler = { path in
             self.isConnected = path.status == .satisfied
             self.conectionTypeWifi = path.usesInterfaceType(.wifi)
+            
+            NotificationCenter.default.post(name: NSNotification.Name("ConnectionStatusChanged"), object: nil)
         }
         
         monitor.start(queue:DispatchQueue.global(qos: .background))

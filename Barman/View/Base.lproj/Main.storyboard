@@ -13,9 +13,10 @@
             <objects>
                 <navigationController id="CS0-sL-NvV" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="fFN-H2-bGN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fFN-H2-bGN">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="compactScrollEdgeAppearance" backgroundEffect="systemChromeMaterial"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Mza-nn-Bhk" kind="relationship" relationship="rootViewController" id="74e-CA-4Um"/>

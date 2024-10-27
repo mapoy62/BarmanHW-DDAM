@@ -11,10 +11,17 @@ class TableViewController: UITableViewController {
     
     var recipes : [Recipe] = []
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Registra el observador solo una vez
+        NotificationCenter.default.addObserver(self, selector: #selector(showTable), name: NSNotification.Name("RecipeSaved"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(connectionStatusChanged), name: NSNotification.Name("ConnectionStatusChanged"), object: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         recipes = DataManager.shared.getAllDrinks()
-        NotificationCenter.default.addObserver(self, selector: #selector(showTable), name:NSNotification.Name(rawValue: "Data Loaded"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(showTable), name:NSNotification.Name(rawValue: "Data Loaded"), object: nil)
     }
     
     @objc func showTable() {
@@ -54,7 +61,29 @@ class TableViewController: UITableViewController {
         }
     }
     
-
+    @objc func connectionStatusChanged() {
+        updateRecipes()
+    }
+        
+    private func updateRecipes() {
+        if InternetMonitor.shared.isConnected {
+            recipes = DataManager.shared.getAllDrinks()
+            tableView.reloadData()
+        } else {
+            showAlert(message: "No hay conexión a Internet. Por favor, verifica tu conexión.")
+        }
+    }
+    
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+        
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("ConnectionStatusChanged"), object: nil)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

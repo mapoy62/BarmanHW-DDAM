@@ -40,6 +40,24 @@ class DetailView: UIView{
     }
     
     func loadImage(from imageUrl: String) {
+        //Path donde se guardará la imagen
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let localPath = documentsDirectory.appendingPathComponent(imageUrl)
+        
+        //Verifica si la imagen existe
+        if fileManager.fileExists(atPath: localPath.path) {
+            // Cargar la imagen desde el almacenamiento local
+            if let savedImage = UIImage(contentsOfFile: localPath.path) {
+                DispatchQueue.main.async {
+                    self.iv.image = savedImage
+                }
+            } else {
+                print("No se pudo cargar la imagen guardada.")
+            }
+            return
+        }
+        
         guard let url = URL(string: "http://janzelaznog.com/DDAM/iOS/drinksimages/\(imageUrl)") else {
             print("Invalid url for the image")
             return
@@ -54,9 +72,19 @@ class DetailView: UIView{
                 print("No se pudo cargar la imagen")
                 return
             }
+                
+            do {
+                try data.write(to: localPath)
+                print("Imagen guardada en: \(localPath.path)")
+            } catch {
+                print("Error al guardar la imagen: \(error.localizedDescription)")
+            }
+                
             DispatchQueue.main.async {
                 self?.iv.image = image
             }
         }.resume()
     }
+    
+    
 }

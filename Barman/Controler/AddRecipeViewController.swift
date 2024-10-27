@@ -41,20 +41,12 @@ class AddRecipeViewController: UIViewController {
             let newRecipe: [[String: Any]] = [["name": name, "ingredients": ingredients, "directions": instructions, "img": ""]]
             
             DataManager.shared.saveRecipes(newRecipe)
+            //Notificamos al controlador para que actualice
+            NotificationCenter.default.post(name: NSNotification.Name("RecipeSaved"), object: nil)
             navigationController?.popViewController(animated: true)
         }else{
             print(msg)
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
